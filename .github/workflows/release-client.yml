@@ -4,6 +4,8 @@ on:
     branches:
       - 'develop'
       - 'main'
+permissions:
+  content: write
 jobs:
   checkversion:
     runs-on: ubuntu-latest
