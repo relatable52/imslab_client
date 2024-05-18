@@ -1,11 +1,11 @@
 {
   "name": "@fdm-monster/client",
-  "version": "1.5.16",
-  "author": "David Zwart",
-  "license": "AGPL-3.0-or-later",
+  "version": "0.0.1",
+  "author": "IMS LAB",
+  "license": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fdm-monster/fdm-monster-client"
+    "url": "https://github.com/relatable52/imslab_client"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
