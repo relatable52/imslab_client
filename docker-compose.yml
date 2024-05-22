@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  mongodb:
+    image: mongo:latest
+    platform: linux/amd64
+    container_name: mongodb
+    environment:
+      # MongoDB with authentication (optional)
+      - MONGO_INITDB_ROOT_USERNAME=YOUR_ROOT_NAME
+      - MONGO_INITDB_ROOT_PASSWORD=YOUR_ROOT_PASSWORD
+    ports:
+      - "28017:27017"
+    volumes:
+      - ./mongodb-data:/data/db
+      - ./mongoconfig:/data/configdb
+    restart: unless-stopped
+
+  fdm-monster:
+    container_name: fdm-monster
+    image: fdmmonster/fdm-monster:latest
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      # MongoDB with and without authentication (optional)
+      - MONGO=mongodb://YOUR_ROOT_NAME:YOUR_ROOT_PASSWORD@mongodb:27017/fdm-monster?authSource=admin
+      # - MONGO=mongodb://mongodb:27017/fdm-monster?authSource=admin
+    volumes:
+      - ./fdm-monster/media:/app/media
+
+  # The unstable alpha release version
+  fdm-monster-alpha:
+    container_name: fdm-monster-alpha
+    image: fdmmonster/fdm-monster:1.6.0-rc1-alpha
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - "4001:4001"
+    environment:
+      - NODE_ENV=development
+      - SERVER_PORT=4001
+    volumes:
+      - ./fdm-monster-alpha/media/:/app/media
+      - ./fdm-monster-alpha/database/:/app/database  
